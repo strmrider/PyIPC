@@ -15,6 +15,35 @@ server = Servive(port)
 server.run()
 ```
 #### Process Node
+Preliminary גשאש
+```Python
+# data handler (prints income data)
+def data_handler(data):
+    print (data)
+
+port = 54121
+data = b'sample message'
+```
+Connect current process to the service
+```Python
+node = ProcessNode(port)
+# listens to income data
+node.listen()
+```
+Contact peer process directly
+```Python
+target_process_id = 11168
+node.contact(target_process_id, data)
+```
+Handle events
+```Python
+# create a new event
+node.create_event("new event", MULTI_EMISSION, data_handler)
+# emit the event with a data
+node.emit("new event", data)
+# subscribe to events
+node.subscribe([TARGET EVENT ID], data_handler)
+```
 ##### API
 * **`listen(handler)`**
     
@@ -50,3 +79,26 @@ server.run()
     Returns a list of all the subscribed events.
     
 ### Signals system
+Run the service
+```Python
+from signal import SignalService
+port = 54121
+server = SignalService()
+server.start()
+```
+Signal target processes
+```Python
+from signal import Signal
+
+# signals handler
+def signal_handler():
+    print ('New signal has been received')
+    
+proc_signal = Signal(port)
+# listens to signals
+proc_signal.listen(signal_handler)
+
+# signal other process
+target_process_id = 12000
+proc_signal.signal(target_process_id)
+```
