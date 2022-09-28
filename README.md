@@ -15,7 +15,7 @@ server = Servive(port)
 server.run()
 ```
 #### Process Node
-Preliminary גשאש
+Preliminary data
 ```Python
 # data handler (prints income data)
 def data_handler(data):
